@@ -18,6 +18,7 @@ class Empleado extends Model
         'telefono',
         'direccion',
         'ocupacion',
+        'id_tenant',
         'estado'
     ];
 
