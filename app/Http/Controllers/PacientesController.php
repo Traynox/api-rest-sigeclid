@@ -143,7 +143,7 @@ class PacientesController extends Controller
         }
     }
 
-    public function indexFilter($paginate,$tenant,$buscar)
+    public function indexFilter($paginate,$tenant,$buscar='')
     {
 
         $pacientes=Paciente::with('expediente')->filter($buscar)->where('estado',1)->where('id_tenant',$tenant)->paginate($paginate);

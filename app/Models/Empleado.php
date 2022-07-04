@@ -23,7 +23,7 @@ class Empleado extends Model
 
     public function citas()
     {
-        return $this->hasMany(Citas::class,'id_cita');
+        return $this->hasMany(Cita::class,'id_cita');
     }
 
     public function scopeFilter($query,$buscar)
