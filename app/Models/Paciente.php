@@ -22,7 +22,7 @@ class Paciente extends Model
         'edad',
         'correo',
         'direccion',
-        'estado'
+        'id_tenant'
     ];
     public function citas()
     {
@@ -32,7 +32,7 @@ class Paciente extends Model
     public function expediente()
     {
         //$fecha=request('fecha');//obtiene el valor de cualquier valor que se mando del ultimo form mediante el nombre
-        return $this->belongsTo(Expediente::class,'id_paciente');
+        return $this->hasMany(Expediente::class,'id_paciente');
     }
     public function scopeFilter($query,$buscar)
     {

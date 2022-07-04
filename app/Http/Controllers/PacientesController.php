@@ -47,8 +47,15 @@ class PacientesController extends Controller
         if($paciente){
 
             // $expediente->fecha_creacion=date('Y-m-d');
-            $request->codigo+=$paciente->id_paciente;
-            $expediente=Expediente::create($request->all());
+            $request->codigo.=$request->id_tenant;
+            $request->codigo.=$paciente->id_paciente;
+           
+            $expediente=Expediente::create([
+                'codigo' => $request->codigo,
+                'fecha_creacion' => date('Y-m-d'),
+                'id_paciente' => $paciente->id_paciente,
+                'id_tenant' => $request->id_tenant,
+                ]);
             
             return response()->json(['ok'=>true,
                                      'data'=>$paciente,

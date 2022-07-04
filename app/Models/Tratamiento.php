@@ -9,6 +9,15 @@ class Tratamiento extends Model
 {
     use HasFactory;
 
+    protected $primaryKey='id_tratamiento';
+    protected $table='tratamientos';
+    public $timestamps=false;
+    protected $fillable=[
+        'descripcion',
+        'monto',
+        'id_tenant',
+    ];
+
 
     public function scopeFilter($query,$buscar)
     {

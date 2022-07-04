@@ -106,7 +106,7 @@ class TratamientosController extends Controller
      */
     public function destroy($id)
     {
-         $tratamiento=Tratamiento::find($id);
+         $tratamiento=Tratamiento::findOrfail($id);
         //  $tratamiento=Tratamiento::destroy($id);
         if($tratamiento){
             

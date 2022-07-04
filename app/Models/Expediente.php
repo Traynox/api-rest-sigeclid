@@ -14,7 +14,9 @@ class Expediente extends Model
     protected $fillable=[
         'codigo',
         'fecha_creacion',
-        'estado'
+        'estado',
+        'id_paciente',
+        'id_tenant',
     ];
 
 
