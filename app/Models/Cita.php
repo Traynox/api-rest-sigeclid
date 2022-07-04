@@ -38,6 +38,7 @@ class Cita extends Model
         return $query->where('nombre','like','%'.$buscar.'%')
                     ->orWhere('apellido','like','%'.$buscar.'%')
                     ->orWhere('telefono','like','%'.$buscar.'%');
+                   
       
     }
 }

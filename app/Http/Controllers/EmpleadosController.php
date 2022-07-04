@@ -132,10 +132,10 @@ class EmpleadosController extends Controller
         }
     }
 
-    public function indexFilter($paginate,$buscar)
+    public function indexFilter($paginate,$tenant,$buscar)
     {
 
-        $empleados=Empleados::filter($buscar)->where('estado',1)->paginate($paginate);
+        $empleados=Empleado::filter($buscar)->where('estado',1)->where('id_tenant',$tenant)->paginate($paginate);
             if($empleados){
             return response()->json(['ok'=>true,
                                     'data'=>$empleados,
