@@ -38,22 +38,18 @@ class TratamientosController extends Controller
      */
     public function store(Request $request)
     {
-        // $expediente=Expediente::create($request->all());
+        $tratamiento=Tratamiento::create($request->all());
         
-        // if($expediente){
-
-        //     // $expediente->fecha_creacion=date('Y-m-d');
-        //     $request->codigo+=$paciente->id_paciente;
-        //     $expediente=Expediente::create($request->all());
-            
-        //     return response()->json(['ok'=>true,
-        //                              'data'=>$paciente,
-        //                              'msg'=>''],201);
-        // }else{
-        //     return response()->json(['ok'=>false,
-        //                              'data'=>[],
-        //                              'msg'=>'No se pudo crear el paciente'],404);
-        // } 
+        if($tratamiento){
+        
+            return response()->json(['ok'=>true,
+                                     'data'=>$tratamiento,
+                                     'msg'=>''],201);
+        }else{
+            return response()->json(['ok'=>false,
+                                     'data'=>[],
+                                     'msg'=>'No se pudo crear el tratamiento'],404);
+        } 
     }
 
     /**
@@ -87,7 +83,19 @@ class TratamientosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tratamiento=Tratamiento::find($id);
+
+        if($tratamiento){
+            $tratamiento->update($request->all());
+
+            return response()->json(['ok'=>true,
+                                     'data'=>$tratamiento,
+                                     'msg'=>''],201);
+        }else{
+            return response()->json(['ok'=>false,
+                                     'data'=>[],
+                                     'msg'=>'No se encontró el tratamiento'],404);
+        }
     }
 
     /**
@@ -98,6 +106,35 @@ class TratamientosController extends Controller
      */
     public function destroy($id)
     {
-        //
+         $tratamiento=Tratamiento::find($id);
+        //  $tratamiento=Tratamiento::destroy($id);
+        if($tratamiento){
+            
+            $tratamiento->estado=0;
+            $tratamiento->save();
+
+            return response()->json(['ok'=>true,
+                                     'data'=>$tratamiento,
+                                     'msg'=>'tratamiento eliminado'],200);
+        }else{
+            return response()->json(['ok'=>false,
+                                     'data'=>[],
+                                     'msg'=>'No se encontró el tratamiento'],404);
+        }
+    }
+
+    public function indexFilter($paginate,$tenant,$buscar='')
+    {
+
+        $tratamientos=Tratamiento::filter($buscar)->where('estado',1)->where('id_tenant',$tenant)->paginate($paginate);
+            if($tratamientos){
+            return response()->json(['ok'=>true,
+                                    'data'=>$tratamientos,
+                                    'msg'=>''],200);
+            }else{
+            return response()->json(['ok'=>false,
+                                    'data'=>[],
+                                    'msg'=>'No se encontraron tratamientos'],404);
+            }
     }
 }

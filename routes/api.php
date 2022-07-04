@@ -34,16 +34,16 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 });
 /* USER ROUTES*/
 Route::apiResource('citas',CitasController::class);
-Route::get('citas/filter/paginate/{paginate}/{tenant}/{buscar?}',[CitasController::class,'indexFilter']);
+Route::get('citas/filter/paginate/{paginate}/tenant/{tenant}/{buscar?}',[CitasController::class,'indexFilter']);
 
 Route::apiResource('empleados',EmpleadosController::class);
-Route::get('empleados/filter/paginate/{paginate}/{tenant}/{buscar?}',[EmpleadosController::class,'indexFilter']);
+Route::get('empleados/filter/paginate/{paginate}/tenant/{tenant}/{buscar?}',[EmpleadosController::class,'indexFilter']);
 
 Route::apiResource('expedientes',ExpedientesController::class);
-Route::get('expedientes/filter/paginate/{paginate}/{tenant}/{buscar?}',[ExpedientesController::class,'indexFilter']);
+Route::get('expedientes/filter/paginate/{paginate}/tenant/{tenant}/{buscar?}',[ExpedientesController::class,'indexFilter']);
 
 Route::apiResource('pacientes',PacientesController::class);
-Route::get('pacientes/filter/paginate/{paginate}/{tenant}/{buscar?}',[PacientesController::class,'indexFilter']);
+Route::get('pacientes/filter/paginate/{paginate}/tenant/{tenant}/{buscar?}',[PacientesController::class,'indexFilter']);
 
 Route::apiResource('tratamientos',TratamientosController::class);
-Route::get('tratamientos/filter/paginate/{paginate}/{tenant}/{buscar?}',[TratamientosController::class,'indexFilter']);
+Route::get('tratamientos/filter/paginate/{paginate}/tenant/{tenant}/{buscar?}',[TratamientosController::class,'indexFilter']);
