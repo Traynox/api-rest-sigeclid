@@ -16,6 +16,7 @@ class Tratamiento extends Model
         'descripcion',
         'monto',
         'id_tenant',
+        'estado'
     ];
 
 
