@@ -7,6 +7,7 @@ use App\Http\Controllers\EmpleadosController;
 use App\Http\Controllers\ExpedientesController;
 use App\Http\Controllers\PacientesController;
 use App\Http\Controllers\TratamientosController;
+use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
@@ -26,12 +27,14 @@ use App\Http\Controllers\UserController;
 /* USER ROUTES*/
 Route::post('auth/register', [UserController::class,'register']);
 Route::post('auth/login', [UserController::class,'authenticate']);
+Route::put('auth/update/{id}',[UserController::class,'update']);
 
 Route::group(['middleware' => ['jwt.verify']], function() {
 
     Route::post('auth/user',[UserController::class,'getAuthenticatedUser']);
 
 });
+
 /* USER ROUTES*/
 Route::apiResource('citas',CitasController::class);
 Route::get('citas/filter/paginate/{paginate}/tenant/{tenant}/{buscar?}',[CitasController::class,'indexFilter']);
@@ -47,3 +50,6 @@ Route::get('pacientes/filter/paginate/{paginate}/tenant/{tenant}/{buscar?}',[Pac
 
 Route::apiResource('tratamientos',TratamientosController::class);
 Route::get('tratamientos/filter/paginate/{paginate}/tenant/{tenant}/{buscar?}',[TratamientosController::class,'indexFilter']);
+
+Route::apiResource('empresas',EmpresaController::class);
+Route::post('empresas/updatefile/tenant/{tenant}',[EmpresaController::class,'updateFile']);

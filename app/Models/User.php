@@ -54,4 +54,12 @@ class User extends Authenticatable implements JWTSubject
     {
     	return [];
     }
+
+    public function scopeFilter($query,$buscar)
+    {
+        // $buscar=request('buscar');
+        return $query->where('name','like','%'.$buscar.'%')
+                    ->orWhere('email','like','%'.$buscar.'%');
+      
+    }
 }

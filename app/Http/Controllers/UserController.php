@@ -43,8 +43,7 @@ class UserController extends Controller
     }
 
 
-    public function register(Request $request)
-    {
+    public function register(Request $request){
 
         Log::info($request);
         $validator = Validator::make($request->all(), [
@@ -57,18 +56,22 @@ class UserController extends Controller
                 return response()->json($validator->errors()->toJson(),400);
         }
 
+        $file=$request->file('file')->store('public/imagenes');
+        
+        $url=Storage::url($file);
+      
         $empresa=Empresa::create([
             'nombre' => $request->get('nombre'),
             'eslogan' => $request->get('eslogan'),
             'direccion' => $request->get('direccion'),
             'telefono' => $request->get('telefono'),
-            'imagen' => $request->get('imagen'),
+            'imagen' => $url,
         ]);
       
         $user = User::create([
-            'name' => $request->get('name'),
-            'email' => $request->get('email'),
-            'password' => Hash::make($request->get('password')),
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
             'id_tenant' => $empresa->id_tenant,
             'id_rol' => $request->get('id_rol'),
         ]);
@@ -76,6 +79,44 @@ class UserController extends Controller
         $token = JWTAuth::fromUser($user);
 
         return response()->json(compact('user','token'),201);
+    }
+
+    public function update(Request $request, $id){
+       
+        $usuario=User::find($id);
+        // Hash::check($request->password, $data->password)
+        if($usuario){
+
+            $usuario->name=$request->name;
+            $usuario->password=Hash::make($request->password);
+            $usuario->email=$request->email;
+            $usuario->save();
+            // $usuario->update($request->all());
+            return response()->json(['ok'=>true,
+                                     'data'=>$usuario,
+                                     'msg'=>''],201);
+        }else{
+            return response()->json(['ok'=>false,
+                                     'data'=>[],
+                                     'msg'=>'No se encontró el usuario'],404);
+        }
+    }
+
+
+    public function indexFilter($tenant,$paginate){
+
+        $users=User::filter($buscar)->where('id_tenant',$tenant)->paginate($paginate);
+
+        if($users){
+        return response()->json(['ok'=>true,
+                                'data'=>$users,
+                                'msg'=>''],200);
+        }else{
+        return response()->json(['ok'=>false,
+                                'data'=>[],
+                                'msg'=>'No se encontraron users'],404);
+        }
+
     }
 }
 
