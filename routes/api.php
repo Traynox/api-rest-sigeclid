@@ -52,4 +52,4 @@ Route::apiResource('tratamientos',TratamientosController::class);
 Route::get('tratamientos/filter/paginate/{paginate}/tenant/{tenant}/{buscar?}',[TratamientosController::class,'indexFilter']);
 
 Route::apiResource('empresas',EmpresaController::class);
-Route::post('empresas/updatefile/tenant/{tenant}',[EmpresaController::class,'updateFile']);
+Route::post('empresas/update/tenant/{tenant}',[EmpresaController::class,'updateFile']);

@@ -55,10 +55,12 @@ class UserController extends Controller
         if($validator->fails()){
                 return response()->json($validator->errors()->toJson(),400);
         }
-
-        $file=$request->file('file')->store('public/imagenes');
+        $url='imagenruta';
+        if($request->hasFile('file')){
+            $file=$request->file('file')->store('public/imagenes');
         
-        $url=Storage::url($file);
+            $url=Storage::url($file);
+        }
       
         $empresa=Empresa::create([
             'nombre' => $request->get('nombre'),
@@ -74,6 +76,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
             'id_tenant' => $empresa->id_tenant,
             'id_rol' => $request->get('id_rol'),
+            'id_plan' => $request->get('id_plan'),
         ]);
 
         $token = JWTAuth::fromUser($user);

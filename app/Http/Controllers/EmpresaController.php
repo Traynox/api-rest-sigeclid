@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
+use App\models\Empresa;
+use Illuminate\Support\Facades\Validator;
 class EmpresaController extends Controller
 {
     /**
@@ -124,22 +125,24 @@ class EmpresaController extends Controller
 
     public function updateFile(Request $request,$tenant){
 
-        $validator = Validator::make($request->all(), [
-            'file' => 'required|image|max:800',
+        
+        // $validator = Validator::make($request->all(), [
+        //     'file' => 'required|image|max:800',
           
-        ]);
+        // ]);
 
     //     if($validator->fails()){
     //         return response()->json($validator->errors()->toJson(),400);
     // }
+ 
           $empresa=Empresa::find($tenant);
-
-        if(!$validator->fails() && $empresa){
+        //   !$validator->fails() &&
+        if($request->hasFile('file') && $empresa){
             
             $file=$request->file('file')->store('public/imagenes');
         
             $url=Storage::url($file);
-          
+         
             $empresa->imagen=$url;
             $empresa->save();
 
@@ -152,12 +155,15 @@ class EmpresaController extends Controller
             // $picture=date('His').'-'.$name_file.'-'.$extension;
             // $file->move(public_puth('files/'),$picture);
 
-            return response()->json(['ok'=>false,
+            return response()->json(['ok'=>true,
                                      'data'=>$empresa,
                                      'msg'=>'Foto actualizada'],404);
 
         }else{
-            return response()->json($validator->errors()->toJson(),400);
+          return response()->json([
+            'data'=>'seleccione archivo'
+          ], 200);
+            // return response()->json($validator->errors()->toJson(),400);
         }
 
     }
