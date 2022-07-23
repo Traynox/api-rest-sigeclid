@@ -24,6 +24,7 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'id_tenant',
         'id_rol',
+        'id_plan',
     ];
 
     /**
@@ -53,5 +54,13 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
     	return [];
+    }
+
+    public function scopeFilter($query,$buscar)
+    {
+        // $buscar=request('buscar');
+        return $query->where('name','like','%'.$buscar.'%')
+                    ->orWhere('email','like','%'.$buscar.'%');
+      
     }
 }
