@@ -13,7 +13,7 @@ class TratamientosController extends Controller
      */
     public function index()
     {
-        $tratamientos=Tratamiento::all()->where('estado',1);
+        $tratamientos=Tratamiento::where('estado',1)->get();
 
         return response()->json(['ok'=>true,
                                  'data'=>$tratamientos,

@@ -13,7 +13,7 @@ class CitasController extends Controller
      */
     public function index()
     {
-        $citas=Citas::all();
+        $citas=Cita::all();
 
         return response()->json(['ok'=>true,
                                  'data'=>$citas,
@@ -133,10 +133,26 @@ class CitasController extends Controller
         }
     }
 
-    public function indexFilter($paginate,$tenant,$buscar='')
+    // public function indexFilter($paginate,$tenant,$buscar='')
+    // {
+
+    //     $citas=Cita::with(['paciente','empleado','tratamientos'])->where('estado',1)->where('id_tenant',$tenant)->paginate($paginate);
+    //         if($citas){
+    //         return response()->json(['ok'=>true,
+    //                                 'data'=>$citas,
+    //                                 'msg'=>''],200);
+    //         }else{
+    //         return response()->json(['ok'=>false,
+    //                                 'data'=>[],
+    //                                 'msg'=>'No se encontraron citas'],404);
+    //         }
+
+    // }
+
+    public function indexFilter($tenant)
     {
 
-        $citas=Cita::with(['paciente','empleado','tratamientos'])->where('estado',1)->where('id_tenant',$tenant)->paginate($paginate);
+        $citas=Cita::with(['paciente','empleado','tratamiento'])->where('estado',1)->where('id_tenant',$tenant)->get();
             if($citas){
             return response()->json(['ok'=>true,
                                     'data'=>$citas,

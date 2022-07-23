@@ -13,7 +13,7 @@ class EmpleadosController extends Controller
      */
     public function index()
     {
-        $empleados=Empleado::all()->where('estado',1);
+        $empleados=Empleado::where('estado',1)->get();
 
         return response()->json(['ok'=>true,
                                  'data'=>$empleados,

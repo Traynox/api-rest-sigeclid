@@ -34,7 +34,7 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 });
 /* USER ROUTES*/
 Route::apiResource('citas',CitasController::class);
-Route::get('citas/filter/paginate/{paginate}/tenant/{tenant}/{buscar?}',[CitasController::class,'indexFilter']);
+Route::get('citas/tenant/{tenant}',[CitasController::class,'indexFilter']);
 
 Route::apiResource('empleados',EmpleadosController::class);
 Route::get('empleados/filter/paginate/{paginate}/tenant/{tenant}/{buscar?}',[EmpleadosController::class,'indexFilter']);
