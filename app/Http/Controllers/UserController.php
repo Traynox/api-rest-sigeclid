@@ -116,7 +116,7 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Successfully logged out']);
     }
-    
+
     public function register(Request $request){
 
         Log::info($request);
@@ -182,7 +182,7 @@ class UserController extends Controller
 
     public function indexFilter($tenant,$paginate){
 
-        $users=User::filter($buscar)->where('id_tenant',$tenant)->paginate($paginate);
+        $users=User::where('id_tenant',$tenant)->paginate($paginate);
 
         if($users){
         return response()->json(['ok'=>true,

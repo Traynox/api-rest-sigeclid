@@ -13,7 +13,7 @@ class CitasController extends Controller
      */
     public function index()
     {
-        $citas=Citas::all();
+        $citas=Cita::all();
 
         return response()->json(['ok'=>true,
                                  'data'=>$citas,

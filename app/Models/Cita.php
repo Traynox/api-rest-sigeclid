@@ -16,6 +16,7 @@ class Cita extends Model
         'start',
         'end',
         'comentario',
+        'id_tenant',
         'estado'
     ];
 
