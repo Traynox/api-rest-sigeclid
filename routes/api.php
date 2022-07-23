@@ -32,12 +32,12 @@ Route::put('auth/update/{id}',[UserController::class,'update']);
 Route::group(['middleware' => ['jwt.verify']], function() {
 
     Route::post('auth/user',[UserController::class,'getAuthenticatedUser']);
-
+    Route::post('auth/logout',[UserController::class,'logout']);
 });
 
 /* USER ROUTES*/
 Route::apiResource('citas',CitasController::class);
-Route::get('citas/filter/paginate/{paginate}/tenant/{tenant}/{buscar?}',[CitasController::class,'indexFilter']);
+Route::get('citas/tenant/{tenant}',[CitasController::class,'indexFilter']);
 
 Route::apiResource('empleados',EmpleadosController::class);
 Route::get('empleados/filter/paginate/{paginate}/tenant/{tenant}/{buscar?}',[EmpleadosController::class,'indexFilter']);

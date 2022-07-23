@@ -133,10 +133,10 @@ class CitasController extends Controller
         }
     }
 
-    public function indexFilter($paginate,$tenant,$buscar='')
+    public function indexFilter($tenant)
     {
 
-        $citas=Cita::with(['paciente','empleado','tratamientos'])->where('estado',1)->where('id_tenant',$tenant)->paginate($paginate);
+        $citas=Cita::with(['paciente','empleado','tratamiento'])->where('estado',1)->where('id_tenant',$tenant)->get();
             if($citas){
             return response()->json(['ok'=>true,
                                     'data'=>$citas,

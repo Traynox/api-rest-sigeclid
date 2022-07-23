@@ -13,8 +13,8 @@ class Cita extends Model
     protected $table='citas';
     public $timestamps=false;
     protected $fillable=[
-        'fecha_inicio',
-        'fecha_fin',
+        'start',
+        'end',
         'comentario',
         'estado'
     ];
@@ -32,11 +32,11 @@ class Cita extends Model
         return $this->belongsTo(Empleado::class,'id_empleado');
     }
 
-    public function tratamientos()
+    public function tratamiento()
     {
         //$fecha=request('fecha');//obtiene el valor de cualquier valor que se mando del ultimo form mediante el nombre
        
-        return $this->hasMany(Tratamiento::class,'id_tratamiento');
+        return $this->belongsTo(Tratamiento::class,'id_tratamiento');
     }
 //PENDIENTE
     public function scopeFilter($query,$buscar)
