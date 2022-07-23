@@ -13,8 +13,11 @@ class Cita extends Model
     protected $table='citas';
     public $timestamps=false;
     protected $fillable=[
+        'id_paciente',
+        'id_empleado',
         'start',
         'end',
+        'id_tratamiento',
         'comentario',
         'id_tenant',
         'estado'
