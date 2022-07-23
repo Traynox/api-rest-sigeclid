@@ -110,12 +110,12 @@ class UserController extends Controller
     //         'message' => 'logout'
     //     ], 200);
     // }
-    public function logout()
-    {
-        auth()->logout();
+    // public function logout()
+    // {
+    //     auth()->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
-    }
+    //     return response()->json(['message' => 'Successfully logged out']);
+    // }
 
     public function register(Request $request){
 
@@ -158,31 +158,10 @@ class UserController extends Controller
         return response()->json(compact('user','token'),201);
     }
 
-    public function update(Request $request, $id){
-       
-        $usuario=User::find($id);
-        // Hash::check($request->password, $data->password)
-        if($usuario){
-
-            $usuario->name=$request->name;
-            $usuario->password=Hash::make($request->password);
-            $usuario->email=$request->email;
-            $usuario->save();
-            // $usuario->update($request->all());
-            return response()->json(['ok'=>true,
-                                     'data'=>$usuario,
-                                     'msg'=>''],201);
-        }else{
-            return response()->json(['ok'=>false,
-                                     'data'=>[],
-                                     'msg'=>'No se encontró el usuario'],404);
-        }
-    }
-
 
     public function indexFilter($tenant,$paginate){
 
-        $users=User::where('id_tenant',$tenant)->paginate($paginate);
+        $users=User::filter()->where('id_tenant',$tenant)->paginate($paginate);
 
         if($users){
         return response()->json(['ok'=>true,
@@ -194,5 +173,12 @@ class UserController extends Controller
                                 'msg'=>'No se encontraron users'],404);
         }
 
+    }
+
+    public function logout()
+    {
+        auth()->logout();
+
+        return response()->json(['message' => 'Successfully logged out']);
     }
 }
