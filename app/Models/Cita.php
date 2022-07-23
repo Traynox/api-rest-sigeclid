@@ -13,8 +13,8 @@ class Cita extends Model
     protected $table='citas';
     public $timestamps=false;
     protected $fillable=[
-        'fecha_inicio',
-        'fecha_fin',
+        'start',
+        'end',
         'comentario',
         'estado'
     ];

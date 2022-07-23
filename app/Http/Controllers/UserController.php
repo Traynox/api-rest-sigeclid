@@ -46,15 +46,19 @@ class UserController extends Controller
     public function register(Request $request){
 
         Log::info($request);
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'name' => 'required|string|max:255',
+        //     'email' => 'required|string|email|max:255|unique:users',
+        //     'password' => 'required|string|min:6|confirmed',
+        // ]);
 
-        if($validator->fails()){
-                return response()->json($validator->errors()->toJson(),400);
-        }
+        // if($validator->fails()){
+        //         return response()->json($validator->errors()->toJson(),400);
+        // }
+        // return response()->json(['ok'=>false,
+        // 'data'=>$request->nombre,
+        // 'msg'=>'No se encontró el usuario'],404);
+
         $url='imagenruta';
         if($request->hasFile('file')){
             $file=$request->file('file')->store('public/imagenes');
@@ -63,11 +67,11 @@ class UserController extends Controller
         }
       
         $empresa=Empresa::create([
-            'nombre' => $request->get('nombre'),
-            'eslogan' => $request->get('eslogan'),
-            'direccion' => $request->get('direccion'),
-            'telefono' => $request->get('telefono'),
-            'imagen' => $url,
+            'nombre' => $request->nombre,
+            // 'eslogan' => $request->get('eslogan'),
+            'direccion' => $request->direccion,
+            'telefono' => $request->telefono,
+            // 'imagen' => $url,
         ]);
       
         $user = User::create([
